@@ -30,7 +30,7 @@ class Solution{
 	public function solveNQueens($n){
 		$res = [];
 		$this->nQueens(0,$n,$res);
-		return $res;
+		return count($res);
 	}
 	private function nQueens($row,$n,&$res){
 		if ($row == $n) {
