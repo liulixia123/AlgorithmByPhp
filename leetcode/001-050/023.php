@@ -22,18 +22,18 @@ class ListNode{
 	}
 }
 class Solution{
-	public function mergeKLists($L){
-		if(empty($L)) return ;
-		$len = count($L);
+	public function mergeKLists($lists){
+		if(empty($lists)) return ;
+		$len = count($lists);
 		if($len==1){
-			return $L[0];
+			return $lists[0];
 		}		
 		$middle = intval($len/2);
 		for ($i=0; $i < $middle; $i++) { 
-			$leftL[] = $L[$i];
+			$leftL[] = $lists[$i];
 		}
 		for ($j=$middle; $j < $len; $j++) { 
-			$rightL[] = $L[$j];
+			$rightL[] = $lists[$j];
 		}
 		$left =  $this->mergeKLists($leftL);
 		$right =  $this->mergeKLists($rightL);

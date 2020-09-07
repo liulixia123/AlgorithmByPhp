@@ -29,18 +29,72 @@ nums1[midA-1] ≤ nums2[midB] && nums2[midB-1] ≤ nums1[midA] 。如果这些�
 边的数⼩了，切分线应该右移；如果 nums1[midA-1] > nums2[midB] ，说明 midA 这条线划分
 出来左边的数⼤了，切分线应该左移。经过多次调整以后，切分线总能找到满⾜条件的解。
 假设现在找到了切分的两条线了， 数组 1 在切分线两边的下标分别是 midA - 1 和 midA 。 数
-组 2 在切分线两边的下标分别是 midB - 1 和 midB 。最终合并成最终数组，如果数组⻓度是奇
-数，那么中位数就是 max(nums1[midA-1], nums2[midB-1]) 。如果数组⻓度是偶数，那么中间
+组 2 在切分线两边的下标分别是 midB - 1 和 midB 。最终合并成最终数组，如果数组长度是奇
+数，那么中位数就是 max(nums1[midA-1], nums2[midB-1]) 。如果数组长度是偶数，那么中间
 位置的两个数依次是： max(nums1[midA-1], nums2[midB-1]) 和 min(nums1[midA],
 nums2[midB]) ，那么中位数就是 (max(nums1[midA-1], nums2[midB-1]) +
 min(nums1[midA], nums2[midB])) / 2 。图示⻅下图：
 
 */
 
-class Solution{
-	public function findMedianSortedArrays($nums,$target){
-		
-	}
+class Solution {
+
+    /**
+     * @param Integer[] $nums1
+     * @param Integer[] $nums2
+     * @return Float
+     */
+    function findMedianSortedArrays($nums1, $nums2) {
+        $k = intval((count($nums1) + count($nums2) + 1) / 2 );
+        if((count($nums1) + count($nums2))%2 == 1){
+            //奇数
+            $median = $this->getKthEle($nums1, $nums2, $k);
+        }else{
+             //偶数
+            $median1 = $this->getKthEle($nums1, $nums2, $k);
+            $median2 = $this->getKthEle($nums1, $nums2, $k+1);
+            $median = ($median1 + $median2) / 2;
+        }
+
+        return $median;
+    }
+
+    //返回第k大的数
+    function getKthEle($nums1, $nums2, $k){
+        //二分法，每次排除一半的元素
+        $length1 = count($nums1);
+        $length2 = count($nums2);
+        $index1 = 0;
+        $index2 = 0;
+        while($k > 0){
+            //边界情况
+            if($index1 == $length1){
+                return $nums2[$index2 + $k -1];
+            }
+
+            if($index2 == $length2){
+                return $nums1[$index1 + $k - 1];
+            }
+
+            //当前找的就是第k小的值
+            if($k == 1){
+                return min($nums1[$index1], $nums2[$index2]);    
+            }
+            //对比元素
+            $ele1 = min($index1 + $k / 2 - 1, $length1 - 1);
+            $ele2 = min($index2 + $k / 2 - 1, $length2 - 1);
+            if($nums1[$ele1] > $nums2[$ele2]){
+                $rm = min(intval($k / 2), $length2);//真实的移除元素数
+                $index2 += $rm;
+            }else{
+                $rm = min(intval($k / 2), $length1);//真实的移除元素数
+                $index1 += $rm;
+            }
+            $k -= $rm;
+        }
+
+        return 0;
+    }
 }
 $s = new Solution();
-print_r($s->findMedianSortedArrays([1,2, 7, 11, 15], 9));
+print_r($s->findMedianSortedArrays([-1, -2], [3]));

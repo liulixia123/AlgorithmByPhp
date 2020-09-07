@@ -29,7 +29,7 @@ class Solution{
 		$this->backtracking('',$n,$n,$res);
 		return $res;
 	}
-	public function backtracking($s='',$left,$right,&$res){		
+	private function backtracking($s='',$left,$right,&$res){		
 		if($left==0&&$right==0) {
 			array_push($res,$s);
 			return ;

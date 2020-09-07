@@ -28,20 +28,20 @@ Output: true
 需要注意，空字符串是满⾜括号匹配的，即输出 true。
 */
 class Solution{
-	public function isValid($str){
-		if($str=='')return "false";
-		$strlen = strlen($str);
+	public function isValid($s){
+		if($s=='')return "false";
+		$slen = strlen($s);
 		$arr = [];
-		for ($i=0; $i < $strlen; $i++) { 
-			switch ($str[$i]) {
+		for ($i=0; $i < $slen; $i++) { 
+			switch ($s[$i]) {
 				case '(':
-					array_push($arr,$str[$i]);
+					array_push($arr,$s[$i]);
 					break;
 				case '{':
-					array_push($arr,$str[$i]);
+					array_push($arr,$s[$i]);
 					break;
 				case '[':
-					array_push($arr,$str[$i]);
+					array_push($arr,$s[$i]);
 					break;
 				case ')':
 					$del = array_pop($arr);
@@ -72,4 +72,4 @@ class Solution{
 }
 $s = new Solution();
 echo "<pre>";
-print_r($s->isValid("{[]}"));
+print_r($s->isValid("(]"));

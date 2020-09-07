@@ -20,10 +20,12 @@ class Solution{
 		$length = count($intervals);
 		if($length == 0) return $intervals;
 		$res = [];
+		sort($intervals);
 		$temp = $intervals[0];
 		for ($i=1; $i < $length; $i++) { 
 			if($temp[1]>=$intervals[$i][0]){
 				$temp[1] = max($temp[1],$intervals[$i][1]);
+				$temp[0] = min($temp[0],$intervals[$i][0]);
 			}else{
 				array_push($res,$temp);
 				$temp = $intervals[$i];
@@ -35,4 +37,4 @@ class Solution{
 }
 $s = new Solution();
 echo "<pre>";
-print_r($s->merge56([[1,4],[4,5]]));
+print_r($s->merge56([[1,4],[0,0]]));

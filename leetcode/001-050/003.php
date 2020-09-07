@@ -12,6 +12,9 @@ Explanation: The answer is "b", with the length of 1.
 Example 3:
 Input: "pwwkew"
 Output: 3
+Example 4:
+Input: "nwparmpi"
+Output: 5
 Explanation: The answer is "wke", with the length of 3.
  Note that the answer must be a substring, "pwke" is a subsequence
 and not a substring.
@@ -26,22 +29,22 @@ class Solution{
 	public function lengthOfLongestSubstring($s){
 		$len = strlen($s);
 		if($len<=0){
-			return ;
+			return 0;
 		}
-		$res = 0;//最长字串的长度
+		$maxlenth = 0;//最长字串的长度
 		$st = 0;//最左边字符位置
 		$charMap = [];//记录字符最后出现的位置
 		for ($i=0; $i < $len; $i++) { 
 			if(!array_key_exists($s[$i],$charMap)||$charMap[$s[$i]]<$st){
-				$res = max($st,$i-$st+1);
+				$maxlenth = max($maxlenth,$i-$st+1);
 			}else{
 				$st = $charMap[$s[$i]]+1;
 			}
 			$charMap[$s[$i]] = $i;
-		}
-		return $res;
+		}		
+		return $maxlenth;
 
 	}
 }
 $s = new Solution();
-print_r($s->lengthOfLongestSubstring('pwwkew'));
+print_r($s->lengthOfLongestSubstring("pwwkew"));

@@ -17,30 +17,30 @@ class ListNode{
 	}
 }
 class Solution{
-	public function mergeTwoLists($L1,$L2){
-		if($L1==NULL)
-			return $L2;
-        if($L2==NULL)
-            return $L1;
-		if($L1->val<$L2->val){
-            $L1->next = $this->mergeTwoLists($L1->next,$L2);
-            return $L1;
+	public function mergeTwoLists($l1, $l2){
+		if($l1==NULL)
+			return $l2;
+        if($l2==NULL)
+            return $l1;
+		if($l1->val<$l2->val){
+            $l1->next = $this->mergeTwoLists($l1->next,$l2);
+            return $l1;
         }
-        $L2->next =  $this->mergeTwoLists($L1,$L2->next);
-        return $L2;
+        $l2->next =  $this->mergeTwoLists($l1,$l2->next);
+        return $l2;
 	}
 }
 $s = new Solution();
-$L11= new ListNode(1);
-$L12= new ListNode(2);
-$L13= new ListNode(4);
+$l11= new ListNode(1);
+$l12= new ListNode(2);
+$l13= new ListNode(4);
 
-$L21= new ListNode(1);
-$L22= new ListNode(3);
-$L23= new ListNode(4);
-$L11->next = $L12;
-$L12->next = $L13;
-$L21->next = $L22;
-$L22->next = $L23;
+$l21= new ListNode(1);
+$l22= new ListNode(3);
+$l23= new ListNode(4);
+$l11->next = $l12;
+$l12->next = $l13;
+$l21->next = $l22;
+$l22->next = $l23;
 echo "<pre>";
-print_r($s->mergeTwoLists($L11,$L21));
+print_r($s->mergeTwoLists($l11,$l21));

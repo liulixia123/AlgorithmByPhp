@@ -14,7 +14,7 @@ Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 */
 
 class Solution{
-	public function letterCombinations($str){
+	public function letterCombinations($digits){
 		$letterMap = [
 			 " ", //0
 			 "", //1
@@ -29,20 +29,20 @@ class Solution{
 		];
 		$res = [];//计算结果
 		$queue = [];//中间队列
-		$length = strlen($str);
+		$length = strlen($digits);
 		if($length<=0){
 			return $res;
 		}
 		//首个字符取出加入队列中
-		$queue = str_split($letterMap[intval($str[0])]);
+		$queue = str_split($letterMap[intval($digits[0])]);
 		//剩余数字字符依次取出和前面字符组合,广度优先遍历
 		for ($i=1; $i < $length; $i++) { 
 			$len = count($queue);
 			while($len--){
-				$ortherlen = count(str_split($letterMap[intval($str[$i])]));
+				$ortherlen = count(str_split($letterMap[intval($digits[$i])]));
 				for ($j=0; $j < $ortherlen; $j++) { 
 					$temp = $queue[0];
-					$temp .= str_split($letterMap[intval($str[$i])])[$j];					
+					$temp .= str_split($letterMap[intval($digits[$i])])[$j];					
 					array_push($queue,$temp);
 					
 				}

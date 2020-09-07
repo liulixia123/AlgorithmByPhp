@@ -26,25 +26,25 @@ class ListNode{
 	}
 }
 class Solution{
-	public function addTwoNumbers($L1,$L2){
-		if($L1==NULL||$L2==NULL)
+	public function addTwoNumbers($l1,$l2){
+		if($l1==NULL||$l2==NULL)
 			return NULL;
 		//创建虚拟头结点
 		$pNode = new ListNode(0);
         $pHead = $pNode;
         $val = 0;
 		//链表循环判断
-		while ($L1 or $L2 or $val){
-            if($L1){
-                $val += $L1->val;
-                $L1 = $L1->next;
+		while ($l or $l2 or $val){
+            if($l1){
+                $val += $l1->val;
+                $l1 = $l1->next;
             }
-            if($L2){
-                $val += $L2->val;
-                $L2 = $L2->next;
+            if($l2){
+                $val += $l2->val;
+                $l2 = $l2->next;
             }
             $pNode->next = new ListNode($val % 10);
-            $val /= 10;
+            $val = intval($val/10);
             $pNode = $pNode->next;
         }
         return $pHead->next;

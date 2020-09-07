@@ -12,10 +12,10 @@ class ListNode{
 }
 class Solution{
 	public function hasCycle($head){
-		if($L==NULL)
+		if($head==NULL)
 			return false;
         $slow  = $fast = $head;
-        while ( $slow!=NULL&&$slow->next!=NULL) {
+        while ($slow!=NULL&&$slow->next!=NULL) {
             $fast=$fast->next->next;
             $slow=$slow->next;
             if($fast==$slow) return true;

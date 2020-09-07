@@ -20,23 +20,23 @@ class ListNode{
 	}
 }
 class Solution{
-	public function removeNthFromEnd($L,$n){
-		if($L==NULL)return 0;
-        if($n<=0) return $L;
-        $fast= $slow= $L;
-        for ($i=0; $i <$n ; $i++) { 
-           $fast= $fast->next;
-        }
-        if($fast==NULL){
-           $L = $L->next;
-           return $L; 
-        }
-        while ($fast->next!=NULL) {
-           $fast = $fast->next;
-           $slow = $slow->next;
-        }
-        $slow->next = $slow->next->next;
-        return $L;
+	public function removeNthFromEnd($head, $n){
+		if($head==NULL)return 0;
+    if($n<=0) return $head;
+    $fast= $slow= $head;
+    for ($i=0; $i <$n ; $i++) { 
+       $fast= $fast->next;
+    }
+    if($fast==NULL){
+       $head = $head->next;
+       return $head; 
+    }
+    while ($fast->next!=NULL) {
+       $fast = $fast->next;
+       $slow = $slow->next;
+    }
+    $slow->next = $slow->next->next;
+    return $head;
 	}
 }
 $s = new Solution();
