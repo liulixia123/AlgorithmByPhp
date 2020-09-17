@@ -32,44 +32,24 @@ class Solution{
 		if($s=='')return "false";
 		$slen = strlen($s);
 		$arr = [];
+		if($slen&1==1) return false;//奇数个为false
+		$map = ['(','{','['];
 		for ($i=0; $i < $slen; $i++) { 
-			switch ($s[$i]) {
-				case '(':
-					array_push($arr,$s[$i]);
-					break;
-				case '{':
-					array_push($arr,$s[$i]);
-					break;
-				case '[':
-					array_push($arr,$s[$i]);
-					break;
-				case ')':
-					$del = array_pop($arr);
-					if($del!='('){
-						return "false";
-					}
-					break;
-				case '}':
-					$del = array_pop($arr);
-					if($del!='{'){
-						return "false";
-					}
-					break;
-				case ']':
-					$del = array_pop($arr);
-					if($del!='['){
-						return "false";
-					}
-					break;
+			if(in_array($s[$i],$map)){
+				array_push($arr,$s[$i]);
+			}else{
+				if($s[$i]==')') {if(array_pop($arr)!='(') return false;}
+				if($s[$i]=='}') {if(array_pop($arr)!='{') return false;}
+				if($s[$i]==']') {if(array_pop($arr)!='[') return false;}
 			}
 		}
 		if(empty($arr)){
-			return "true";
+			return true;
 		}else{
-			return "false";
+			return false;
 		}
 	}
 }
 $s = new Solution();
 echo "<pre>";
-print_r($s->isValid("(]"));
+var_dump($s->isValid("(("));

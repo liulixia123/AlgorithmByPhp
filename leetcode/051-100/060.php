@@ -7,7 +7,7 @@ Input: n = 3, k = 3
 Output: "213"
 Input: n = 4, k = 9
 Output: "2314"
-Explanation: [4,-1,2,1] has the largest sum = 6.
+
 DFS
 */
 
