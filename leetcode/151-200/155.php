@@ -13,42 +13,51 @@ class MinStack {
     function __construct() {
         
     }
-  
+    private $stack = [];
     /**
      * @param Integer $x
      * @return NULL
      */
     function push($x) {
-        
+        array_push($this->stack,$x);
     }
   
     /**
      * @return NULL
      */
     function pop() {
-        
+        array_pop($this->stack);
     }
   
     /**
      * @return Integer
      */
     function top() {
-        
+        $count = count($this->stack);
+        if($count>=1){
+            return $this->stack[$count-1];
+        }
+        return ;        
     }
   
     /**
      * @return Integer
      */
     function getMin() {
-        
+        sort($this->stack);
+        return $this->stack[0];
     }
 }
 
 /*
 / * Your MinStack object will be instantiated and called as such:*/
  $obj = new MinStack();
- $obj->push($x);
- $obj->pop();
+ $obj->push(-2);
+ $obj->push(0);
+ $obj->push(-3);
+ //$obj->pop();
  $ret_3 = $obj->top();
  $ret_4 = $obj->getMin();
+ var_dump($ret_3);
+ var_dump($ret_4);
  
