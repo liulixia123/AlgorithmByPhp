@@ -36,7 +36,7 @@ class Solution{
 			$cur = $first;
 			$head = $first->next;
 		}
-		return $res;	
+		return $res->next;	
 		
 	}
 	//递归方式实现不是很理解
