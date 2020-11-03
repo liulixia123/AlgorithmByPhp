@@ -1,42 +1,39 @@
 <?php
 /**题目
-Determine whether an integer is a palindrome. An integer is a palindrome when it reads the
-same backward as forward.
-Example 1:
-Input: 121
-Output: true
-Example 2:
-Input: -121
-Output: false
-Explanation: From left to right, it reads -121. From right to left, it becomes
-121-. Therefore it is not a palindrome.
-Example 3:
-Input: 10
-Output: false
-Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
-意思就是判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
-解题思路
-判断一个整数是不是回文数。
-简单题。注意会有负数的情况，负数，个位数，10 都不是回文数。其他的整数再按照回文的规则
-判断。
+盛最多水容器
+给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+
+说明：你不能倾斜容器，且 n 的值至少为 2。
+示例
+输入：[1,8,6,2,5,4,8,3,7]
+输出：49
+解题思路双指针
+
 */
 
-class Solution{
-	public function isPalindrome($num){
-		if($num<0)
-			return false;
-		if($num<=10){
-			return false;
-		}
-		$num = strval($num);
-		$len = strlen($num);		
-		for ($i=0; $i <=intval($len/2); $i++) { 
-			if($num[$i]!=$num[$len-$i-1]){
-				return false;
-			}
-		}
-		return true;
-	}
+class Solution {
+
+    /**
+     * @param Integer[] $height
+     * @return Integer
+     */
+    public function maxArea($height) {
+        $size = count($height);
+        // 必须要两个线段以上
+        if($size < 2 ) return 0;
+        $max  = 0;
+        $left = 0;
+        $right= $size-1;
+        while($left < $right) {
+            $max = max($max, min($height[$left],$height[$right]) * ($right-$left));
+            if($height[$left] < $height[$right]) {
+                $left++;
+            }else{
+                $right--;
+            }
+        }
+        return $max;
+    }
 }
 $s = new Solution();
-var_dump($s->isPalindrome(-121));
+var_dump($s->maxArea([2,3,4,5,18,17,6]));

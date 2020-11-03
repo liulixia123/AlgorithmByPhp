@@ -19,7 +19,7 @@ class Solution{
         //找到链表的中间节点
         while ($fast->next!=null&&$fast->next->next!=null) {
             $slow = $slow->next;
-            $fast = $fast->next;
+            $fast = $fast->next->next;
         }
         //反转链表后半部分
         $preMiddle = $slow;

@@ -90,6 +90,41 @@ class Solution{
         // 全部判断完以后，才表示安全
         return true;
     }
+
+
+    //
+    function totalNQueens($n) {
+        if ($n==1) return 1;
+        if($n<4)  return 0;
+        $tf = array_fill(0, $n, array_fill(0, $n, 'T'));
+        $this->res = 0;
+        for ($i=0; $i < $n; $i++) { 
+            $tf_t = $tf;
+            $tf_t[0][$i] = 'F';
+            $this->dfs($tf_t,[[0,$i]]);
+        }
+        return $this->res;
+    }
+
+    function dfs($tf,$path){
+        if(count($tf)==count($path)){
+            $this->res++;
+            return;
+        }
+        $x=end($path)[0];
+        $y=end($path)[1];
+        $k = count($path);
+        for ($j=count($path); $j < count($tf); $j++) { 
+            $tf[$j][$y] = 'F';
+            if($y>=$j-$x) $tf[$j][$y-($j-$x)] = 'F';
+            if($y+$j-$x<count($tf)) $tf[$j][$y+$j-$x] = 'F';
+        }
+        for ($j=0; $j < count($tf); $j++) { 
+            if($tf[$k][$j]==='T'){
+                $this->dfs($tf,array_merge($path,[[$k,$j]]));
+            }
+        }
+    }
 }
 $s = new Solution();
 echo "<pre>";
