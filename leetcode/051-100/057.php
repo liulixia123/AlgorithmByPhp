@@ -16,10 +16,17 @@ Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
 class Solution{
 	public function insert($intervals,$newInterval){
 		$length = count($intervals);
-		if($length == 0) return array_push($intervals,$newInterval);
-		$res = [];
+		$res = [];		
+		if($length == 0){
+			array_push($res,$newInterval);
+			return $res;
+		} 
+		if(empty($intervals[0])) {
+			array_push($res,$newInterval);
+			return $res;
+		}
 		$curIndex = 0;
-		while ( $curIndex< $length && $intervals[$curIndex][1]<=$newInterval[0]) {			
+		while ( $curIndex< $length && $intervals[$curIndex][1]<$newInterval[0]) {			
 			array_push($res,$intervals[$curIndex]);
 			$curIndex++;
 		}

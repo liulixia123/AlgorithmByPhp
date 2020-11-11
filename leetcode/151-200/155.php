@@ -13,39 +13,41 @@ class MinStack {
     function __construct() {
         
     }
-    private $stack = [];
+    private $stack1 = [];
+    private $stack2 = [];//存放s1中所有节点最小值
     /**
      * @param Integer $x
      * @return NULL
      */
     function push($x) {
-        array_push($this->stack,$x);
+        array_push($this->stack1,$x);//s1正常入栈
+        if(end($this->stack2)>=$x||empty($this->stack2)){//s2存放最小值
+           array_push($this->stack2,$x); 
+       }
     }
   
     /**
      * @return NULL
      */
     function pop() {
-        array_pop($this->stack);
+        if(end($this->stack1)==end($this->stack2)){
+            array_pop($this->stack2);
+        }
+        array_pop($this->stack1);
     }
   
     /**
      * @return Integer
      */
     function top() {
-        $count = count($this->stack);
-        if($count>=1){
-            return $this->stack[$count-1];
-        }
-        return ;        
+        return end($this->stack1);       
     }
   
     /**
      * @return Integer
      */
     function getMin() {
-        sort($this->stack);
-        return $this->stack[0];
+        return end($this->stack2);
     }
 }
 
@@ -55,9 +57,9 @@ class MinStack {
  $obj->push(-2);
  $obj->push(0);
  $obj->push(-3);
- //$obj->pop();
- $ret_3 = $obj->top();
- $ret_4 = $obj->getMin();
- var_dump($ret_3);
- var_dump($ret_4);
+
+ var_dump($obj->getMin());
+ var_dump($obj->pop());
+ var_dump($obj->top());
+ var_dump($obj->getMin());
  
