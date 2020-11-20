@@ -44,3 +44,8 @@ class Solution {
 	    return $dp[$n];
     }
 }
+
+$obj = new Solution();
+$nums = [1,2,3];
+echo "<pre>";
+print_r($obj->subsets($nums));

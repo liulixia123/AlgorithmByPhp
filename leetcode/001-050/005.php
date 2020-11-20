@@ -33,6 +33,32 @@ class Solution{
 		}
 		return true;
 	}
+	/**
+	 * 动态规划求解，高级解法
+	 * @param  [type] $s [description]
+	 * @return [type]    [description]
+	 * 子问题
+	 * i 和j 表示回文开始和结束位置
+	 * s[i,j] 是回文那么s[i+1,j-1] 也是回文
+	 */
+	function longestPalindrome1($s){
+		$length = strlen($s);
+		if($length<2) return $s;
+		$dp = [];
+		//$dp = array_fill(0, $length, 1);
+		$left = $right = 0;
+		for ($i=$length-2; $i >=0; $i--) { 
+			$dp[$i][$i] =true;
+			for ($j=$i+1; $j < $length; $j++) { 				
+				$dp[$i][$j] = $s[$i]==$s[$j]&&(($j-$i)<3||$dp[$i+1][$j-1]);
+				if($dp[$i][$j]&&$right-$left<$j-$i){
+					$left = $i;
+					$right = $j;
+				}
+			}
+		}
+		return substr($s,$left,$right);
+	}
 }
 $s = new Solution();
-print_r($s->longestPalindrome("cbbd"));
+print_r($s->longestPalindrome1("babad"));
