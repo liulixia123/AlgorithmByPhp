@@ -33,17 +33,17 @@ class Solution {
     	$l = 0;
     	$r = $len - 1;    	
     	
-    	/*while($l<$r){  		
-    		$mid = $l + floor(($r - $l + 1) / 2);
+    	while($l<$r){  		
+    		$mid = ($r+$l)>>1;
     		if($nums[$mid]>$nums[$mid+1]){
     			$r = $mid;
     		}else{
     			$l = $mid+1;
     		}
-    	}*/
+    	}
     	return $l;
     }
 }
 
 $s = new Solution();
-var_dump($s->findPeakElement([1,2,1,3,5,6,4]));
+var_dump($s->findPeakElement([1,2,3,1]));

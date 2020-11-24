@@ -11,19 +11,24 @@
 
 */
 class Solution{	
-	public function reverseString($str){
-		$i = 0;
-		$j = strlen($str)-1;
-		for ($i=0; $i < intval(strlen($str)/2); $i++) { 
-			$temp = $str[$i];
-			$str[$i] = $str[$j];
-			$str[$j] = $temp;
-			$j--;
+	public function topKFrequent($nums,$k){
+		if(empty($nums)) return [];
+		$temp = array_count_values($nums);
+		$i = 1;
+		$res = [];
+		foreach ($temp as $key => $value) {
+			if($i<=$k){
+				array_push($res,$key);
+			}else{
+				break;
+			}
+			++$i;
 		}
-		return $str;
-
+		return $res;
 	}
 }
 $s = new Solution();
 echo "<pre>";
-print_r($s->reverseString('helloq'));
+$nums = [1,1,1,2,2,3];
+$k =2;
+print_r($s->topKFrequent($nums,$k));
