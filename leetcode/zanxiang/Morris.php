@@ -10,7 +10,7 @@ function morris($head){
 	$mostRight = null;
 	while($cur!=null){
 		$mostRight = $cur->left;
-		while($mostRight!=null){
+		if($mostRight!=null){
 			while ($mostRight->right!=null&&$mostRight->right!=$cur) {
 				$mostRight = $mostRight->right;
 			}
@@ -169,33 +169,40 @@ function minDepth($head){
 	}
 	$cur = $head;
 	$mostRight = null;
-	$level = 1;
+	$curlevel = 0;
+	$minDepth = PHP_INT_MAX;
 	while($cur!=null){
 		$mostRight = $cur->left;
-		while($mostRight!=null){
+		if($mostRight!=null){
+			$rightEdge = 1;
 			while ($mostRight->right!=null&&$mostRight->right!=$cur) {
+				$rightEdge++;
 				$mostRight = $mostRight->right;
 			}
 			if($mostRight->right==null){//第一次来到cur
 				$mostRight->right = $cur;
 				$cur = $cur->left;
-				$level++;
+				$curlevel++;
 				continue;
 			}else{//第二次来到cur
+				if($cur->left==null){//叶子节点
+					$minDepth = min($minDepth,$curlevel);
+				}
+				$curlevel -= $rightEdge;
 				$mostRight->right = null;
-				$level = $level-getEdge($cur->left);
+				
 			}
-		}
-		$level++;
+		}else{//只访问一次的节点
+			$curlevel++;
+		}		
 		$cur = $cur->right;
 	}
-}
-//计算右边界有几个节点
-function getEdge($head){
+	$finalDepth = 0;
 	$cur = $head;
-	$count = 0;
-	while($cur!=null){
-		$count++;
+	while ($cur!=null) {
+		$finalDepth++;
 		$cur = $cur->right;
 	}
+	$minDepth = min($minDepth,$finalDepth);
+	return $minDepth;
 }
