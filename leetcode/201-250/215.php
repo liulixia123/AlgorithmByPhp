@@ -23,7 +23,43 @@ class Solution{
 		}
 		return 0;
 	}
+
+	function findKthLargest1($nums,$k){
+		if(empty($nums)) return 0;
+		$len = count($nums);
+		$index = $this->partition($nums,0,$len-1);
+		
+		while ($index!=$k) {
+			if($index>$k){			
+				$index = $this->partition($nums,0,$index-1);			
+			}else{
+				$index = $this->partition($nums,$index,$len-1);
+			}
+		}
+		if($index==$k){
+			return $nums[$index];
+		}
+	}
+
+	function partition(&$nums,$begin,$end){
+		if($begin>$end) return ;
+		$pvoit = $begin + rand(0,$end-$begin+1);
+		$i = $begin;$counter = 0;
+		while($i<=$end){
+			if($nums[$i]<$nums[$pvoit]){
+				$tmp = $nums[$i];
+				$nums[$i] = $nums[$counter];
+				$nums[$counter] = $tmp;
+				$counter++;
+			}
+			$i++;
+		}
+		$tmp = $nums[$pvoit];
+		$nums[$pvoit] = $nums[$counter];
+		$nums[$counter] = $tmp;
+		return $counter;
+	}
 }
-$s = new Solution();
+$obj = new Solution();
 echo "<pre>";
-var_dump($s->findKthLargest([3,2,1,5,6,4],2));
+var_dump($obj->findKthLargest1([3,2,8,5,6,4],2));

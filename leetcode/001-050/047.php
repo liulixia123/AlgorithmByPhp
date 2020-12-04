@@ -1,5 +1,6 @@
 <?php
 /**题目
+全排列 II
 Given a collection of numbers that might contain duplicates, return all possible unique
 permutations.
 Input: [1,1,2]

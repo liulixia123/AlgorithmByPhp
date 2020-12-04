@@ -40,6 +40,7 @@ class Solution{
 	 * 子问题
 	 * i 和j 表示回文开始和结束位置
 	 * s[i,j] 是回文那么s[i+1,j-1] 也是回文
+	 * 时间复杂度O(n^2)
 	 */
 	function longestPalindrome1($s){
 		$length = strlen($s);

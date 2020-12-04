@@ -1,5 +1,6 @@
 <?php
 /**题目
+最长无重复字串
 Given a string, find the length of the longest substring without repeating characters.
 Example 1:
 Input: "abcabcbb"
@@ -12,9 +13,6 @@ Explanation: The answer is "b", with the length of 1.
 Example 3:
 Input: "pwwkew"
 Output: 3
-Example 4:
-Input: "nwparmpi"
-Output: 5
 Explanation: The answer is "wke", with the length of 3.
  Note that the answer must be a substring, "pwke" is a subsequence
 and not a substring.
@@ -45,6 +43,58 @@ class Solution{
 		return $maxlenth;
 
 	}
+	/**
+	 * 动态规划求解
+	 * @param  [type] $s [description]
+	 * @return [type]    [description]
+	 */
+	function lengthOfLongestSubstring1($s){
+		$len = strlen($s);
+		if($len<=0){
+			return 0;
+		}
+		$maxlenth = 1;//最长字串的长度		
+		$charMap = [];//记录字符最后出现的位置
+		$dp = [];
+		$dp[0] = 1;
+		$charMap[$s[0]] = 0;
+		for ($i=1; $i < $len; $i++) { 			
+			if(array_key_exists($s[$i],$charMap)){
+				$index = $i-$charMap[$s[$i]];
+				$dp[$i] = $index>$dp[$i-1]?$dp[$i-1]+1:$index;				
+			}else{
+				$dp[$i] = $dp[$i-1]+1;
+			}
+			$charMap[$s[$i]] = $i;
+			$maxlenth =max($maxlenth,$dp[$i]);		
+		}
+		return $maxlenth;
+	}
+	/**
+	 * 简化动态规划
+	 * @param  [type] $s [description]
+	 * @return [type]    [description]
+	 */
+	function lengthOfLongestSubstring2($s){
+		$len = strlen($s);
+		if($len<=0){
+			return 0;
+		}
+		$maxlenth = 1;//最长字串的长度		
+		$charMap = [];//记录字符最后出现的位置		
+		$charMap[$s[0]] = 0;
+		$prelen = 1;
+		for ($i=1; $i < $len; $i++) { 			
+			if(array_key_exists($s[$i],$charMap)){				
+				$prelen = min($prelen+1,$i-$charMap[$s[$i]]);				
+			}else{
+				$prelen = $prelen+1;
+			}
+			$charMap[$s[$i]] = $i;
+			$maxlenth =max($maxlenth,$prelen);		
+		}
+		return $maxlenth;
+	}
 }
 $s = new Solution();
-print_r($s->lengthOfLongestSubstring("pwwkew"));
+print_r($s->lengthOfLongestSubstring1("pwwkew"));
