@@ -1,5 +1,6 @@
 <?php
 /**题目
+打印螺旋矩阵
 Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral
 order.
 Input:
@@ -55,11 +56,52 @@ class Solution{
 		}
 		return $res;
 	}
+	/**
+	 * [spiralOrder1 description]
+	 * @param  [type] $nums [description]
+	 * @return [type]       [description]
+	 */
+	public function spiralOrder1($nums){
+		$length = count($nums);
+		if($length == 0) return [];		
+		$res = [];
+		$aR = 0;
+		$aC = 0;
+		$bR = $length-1;
+		$bC = count($nums[0])-1;
+		while($aR<=$bR&&$aC<=$bC){
+			$this->printEdge($nums,$aR++,$aC++,$bR--,$bC--,$res);
+		}
+		
+		print_r($res);
+	}
+	function printEdge($matrix,$aR,$aC,$bR,$bC,&$res){
+		//打印4个边框
+		$i = $aC;
+		while ($i<$bC){
+			array_push($res,$matrix[$aR][$i++]);
+		}
+		$j = $aR;
+		while ($j<$bR) {
+			array_push($res,$matrix[$j++][$bC]);	
+		}
+		$i = $bC;		
+		while ($i>$aC) {
+			array_push($res,$matrix[$bR][$i--]);	
+		}
+		$j = $bR;			
+		while ($j>$aR) {
+			//echo $matrix[$aR--][$aC];
+			array_push($res,$matrix[$j--][$aC]);	
+		}			
+		
+		return $res;
+	}
 }
 $s = new Solution();
 echo "<pre>";
-print_r($s->spiralOrder([
- [ 1, 2, 3 ],
- [ 4, 5, 6 ],
- [ 7, 8, 9 ]
+print_r($s->spiralOrder1([
+ [ 1, 2, 3 ,10],
+ [ 4, 5, 6 ,11],
+ [ 7, 8, 9 ,12]
 ]));

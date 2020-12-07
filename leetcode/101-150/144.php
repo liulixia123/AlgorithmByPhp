@@ -46,7 +46,25 @@ class Solution {
         }
         return $res;
     }
-
+    function preorder1($root){
+        if(empty($root)) return [];
+        $stack = $res = [];
+        $p = $root;
+        array_push($stack,$root);//根节点压栈
+        while(!empty($stack)){
+            $node = array_pop($stack);
+            $res[] = $node->val;
+            if($node->right!=null){
+                 array_push($stack,$node->right);
+            }
+            if($node->left!=null){
+                 array_push($stack,$node->left);
+            }          
+            
+        }
+        return $res;
+    }
+    //中序遍历 左中右
     function inorder($root){
         if(empty($root)) return [];
         $stack = $res = [];
@@ -65,32 +83,28 @@ class Solution {
         }
         return $res;
     }
-
+    //后序遍历
+    //左右中  先序中左右 变成 中右左 在逆序
     function postorder($root){
         if(empty($root)) return [];
-        $stack = $res = [];
+        $stack = $stack2 = $res = [];
         $p = $root;
-        while($root!=null||empty($stack)){
-            while($p!=null){                
-                array_push($stack[$p],$p);
-                array_push($stack[$p]['flag'],1);
-                $p = $p->left;
+        array_push($stack,$root);//根节点压栈
+        while(!empty($stack)){
+            $node = array_pop($stack); 
+            array_push($stack2,$node);//将出栈1的节点压入栈2           
+            if($node->left!=null){
+                 array_push($stack,$node->left);
             }
-            if(!empty($stack)){
-                $p = array_pop($stack);
-                if($p['flag']==1){
-                    array_push($stack[$p],$p);
-                    array_push($stack[$p]['flag'],2);
-                    $p = $p->right; 
-                }elseif($p['flag']==2){
-                    $p = array_pop($stack);
-                    $res[] = $p->val;
-                    $p = $p->right; 
-                }
-                
-            }               
+            if($node->right!=null){
+                 array_push($stack,$node->right);
+            }          
             
         }
-        return $res;
+        while(!empty($stack2)){
+            $node = array_pop($stack); 
+            $res[] = $node->val;
+        }
+        return $res;    
     }
 }

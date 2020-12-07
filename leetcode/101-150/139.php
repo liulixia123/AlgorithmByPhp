@@ -29,7 +29,7 @@ class Solution {
     function wordBreak($s, $wordDict) {
     	$len = strlen($s);
         // dp 数组，表示 [0,i] 这段字符串是否可以拆分
-        $dp = array_fill(0, $len + 1, false);
+        $dp = array_fill(0, $len , false);
         // 空字符串，base case
         $dp[0] = true;
         for ($i = 1; $i <= $len; ++$i) {
@@ -42,7 +42,11 @@ class Solution {
                 }
             }
         }
-
         return end($dp);
     }
 }
+
+$obj = new Solution();
+$s = "catsandog";
+$wordDict = ["cats", "dog", "sand", "and", "cat"];
+var_dump($obj->wordBreak($s, $wordDict));

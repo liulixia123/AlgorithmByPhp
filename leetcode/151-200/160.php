@@ -38,14 +38,28 @@ class Solution {
             return null;
         }
         //若相交再找交叉点：分别遍历，并指向另一链表的头，这样遍历的长度相等
+        //分别遍历出两个链表长度
         $cura = $headA;
         $curb = $headB;
+        $Alen = headLen($headA);
+        $Blen = headLen($headB);        
+        $len = $Alen-$Blen;
+        while($len>0){
+            //A链表先走len步在比较
+            $cura = $cura->next;
+            $len--;
+        }
+        while($len<0){
+            //B链表先走len步在和A比较
+            $curb = $curb->next;
+            $len++;
+        }        
         while($cura || $curb){
             if($cura === $curb){
                 break;
             }
-            $cura = $cura == null ? $headB : $cura->next;
-            $curb = $curb == null ? $headA : $curb->next;
+            $cura = $cura->next;
+            $curb = $curb->next;
         }
         return $cura;
     }
@@ -61,6 +75,15 @@ class Solution {
             $headB = $headB->next;
         }
         return $headA === $headB;
+    }
+    //计算链表长度
+    function headLen($head){
+        $len = 1;
+        while($head->next != null){
+            $head = $head->next;
+            $len++;
+        }
+        return $len;
     }
 }
 $s = new Solution();
