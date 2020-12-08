@@ -84,7 +84,48 @@ class Solution {
     	}
     	return $result;
     }
+
+    function maximumGap1($nums){
+        if(empty($nums)||count($nums)<2) return 0;
+        $n = count($nums);
+        //计算桶的最大值和最小值
+        $max = 0;
+        $min = PHP_INT_MAX;
+        for ($i=0; $i < $n; $i++) { 
+            $max = max($max,$nums[$i]);
+            $min = min($min,$nums[$i]);
+        }
+        //创建n+1个桶
+        $buckets = [];
+        //最小值放在第一个桶，最大值放在最后一个桶，桶里只维护一个最大值和一个最小值
+        $buckets[0]['min'] = $min;
+        $buckets[0]['max'] = $min;        
+        $buckets[$n]['max'] = $max;       
+        $buckets[$n]['min'] = $max;       
+        //计算桶的取值容量
+        $capacity = ceil(($max-$min)/($n+1));
+        for ($i=0; $i < $n; $i++) { 
+            $index = intval(($nums[$i]-$min)/$capacity);            
+            if(!$buckets[$index]){               
+               $buckets[$index]['min'] = $nums[$i];
+               $buckets[$index]['max'] = $nums[$i]; 
+            }else{               
+                $buckets[$index]['min'] = min($buckets[$index]['min'],$nums[$i]);
+                $buckets[$index]['max'] = max($nums[$i],$buckets[$index]['max']); 
+            }            
+        }
+        $result = 0;
+        $pre = $buckets[0]['max'];        
+        for ($i=1; $i < $n+1; $i++) { 
+            if($buckets[$i]){
+                $result = max($result,$buckets[$i]['min']-$pre);
+                $pre = $buckets[$i]['max'];
+            }
+            
+        }
+        return $result;
+    }
 }
 $obj = new Solution();
 $nums = [3,6,9,1];
-var_dump($obj->maximumGap($nums));
+var_dump($obj->maximumGap1($nums));
