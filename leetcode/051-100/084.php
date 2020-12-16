@@ -18,8 +18,19 @@ class Solution{
 			
 			array_push($stack,$i);
 		}
+		// 栈不为空时还需继续计算
+		while (!empty($stack)) {
+			// 栈顶高度
+			$height = $nums[array_pop($stack)];
+			//左边第一个小于当前高度的下标
+			$left = end($stack);
+			//右边大于当前高度的下标，等于数组的长度
+			$right = $n;
+			$max = max($max,$height*($right-$left-1));
+		}
+		
 		return $max;
 	}
 }
 $s = new Solution();
-var_dump($s->maxArea([6,7,5,2,4,5,9,3]));
+var_dump($s->maxArea([3,1,3,2,2]));

@@ -1,6 +1,6 @@
 <?php
 /*
-子集
+子集,所有子序列包括空串
 给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
 
 说明：解集不能包含重复的子集。
@@ -80,7 +80,7 @@ class Solution {
         // 由于是使用了 PHP 的数组，这里可以不用回溯。
         // 但是如果是先取当前元素，后不取，就会对不取的过程造成影响，为了代码完整性，还是要加上
         array_pop($stack);
-    }
+    }    
     /**
      * 回溯法
      */
@@ -128,4 +128,4 @@ class Solution {
 $obj = new Solution();
 $nums = [1,2,3];
 echo "<pre>";
-print_r($obj->subsets3($nums));
+print_r($obj->subsets($nums));
