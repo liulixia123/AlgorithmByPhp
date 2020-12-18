@@ -44,4 +44,4 @@ class Solution{
 }
 $s = new Solution();
 echo "<pre>";
-var_dump($s->maxProfit([1, 3, 2, 8, 4, 9],2));
+var_dump($s->maxProfit([1,3,2,8,4,9],2));

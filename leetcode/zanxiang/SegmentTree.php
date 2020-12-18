@@ -41,6 +41,29 @@ class SegmentTree
 	public function pushup($rt){
 		$this->sum[$rt] = $this->sum[$rt<<1]+$this->sum[$rt<<1|1];
 	}
+	/**
+	 * [add description]
+	 * @param [type] $rangel [范围左区间]
+	 * @param [type] $ranger [范围左区间]
+	 * @param [type] $l      [左树位置]
+	 * @param [type] $r      [左树位置]
+	 * @param [type] $rt     [当前位置]
+	 * @param [type] $c      [加的值]
+	 */
+	public function add($rangel,$ranger,$l,$r,$rt,$c){
+		if($rangel<=$l&&$ranger<=$l){
+			$this->lazy[$rt] += $c;
+			$this->sum[$rt] = $c*($r-$l+1);
+			return;
+		}
+		$mid = $l+(($r-$l)>>1);
+		if($rangel<$mid){
+			$this->add($rangel,$mid,$l,$r,$rt<<1,$c);
+		}
+		if($ranger>$mid){
+			$this->add($mid,$ranger,$l,$r,$rt<<1|1,$c);
+		}
+	}
 	// 下推标记函数 ln,rn 左子树数量右子树数量
 	public function pushdown($ln,$rn,$rt){
 		if($this->lazy[$rt]){
