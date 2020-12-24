@@ -7,6 +7,7 @@ class SegmentTree
 	public $arr; //复制一个原数组的四倍长度数组
 	public $sum; //和
 	public $lazy; //懒加载数组
+	public $update; //更新数组
 	function __construct($origin)
 	{
 		$n = count($origin);
@@ -57,15 +58,25 @@ class SegmentTree
 			return;
 		}
 		$mid = $l+(($r-$l)>>1);
-		if($rangel<$mid){
+		if($rangel<=$mid){
 			$this->add($rangel,$mid,$l,$r,$rt<<1,$c);
 		}
 		if($ranger>$mid){
 			$this->add($mid,$ranger,$l,$r,$rt<<1|1,$c);
 		}
+		$this->pushdown($l-$rangel,$r-$ranger,$rt);
 	}
 	// 下推标记函数 ln,rn 左子树数量右子树数量
 	public function pushdown($ln,$rn,$rt){
+		if($this->update[$rt]){
+			// 下推标记
+			$this->update[$rt<<1]+=$this->update[$rt];
+			$this->update[$rt<<1|1]+=$this->update[$rt];
+			//修改子节点sum与update对应
+			$this->sum[$rt<<1] = $this->update[$rt]*$ln;
+			$this->sum[$rt<<1|1] = $this->update[$rt]*$rn;
+			$this->lazy[$rt] = 0;
+		}
 		if($this->lazy[$rt]){
 			// 下推标记
 			$this->lazy[$rt<<1]+=$this->lazy[$rt];
@@ -80,7 +91,19 @@ class SegmentTree
 
 	// 更新
 	public function update($rangel,$ranger,$l,$r,$rt,$c){
-		
+		if($rangel<=$l&&$ranger<=$l){
+			$this->update[$rt] = $c;
+			$this->sum[$rt] = $c*($r-$l+1);
+			return;
+		}
+		$mid = $l+(($r-$l)>>1);
+		if($rangel<=$mid){
+			$this->update($rangel,$mid,$l,$r,$rt<<1,$c);
+		}
+		if($ranger>$mid){
+			$this->update($mid,$ranger,$l,$r,$rt<<1|1,$c);
+		}
+		$this->pushdown($l-$rangel,$r-$ranger,$rt);
 	}
 
 }
