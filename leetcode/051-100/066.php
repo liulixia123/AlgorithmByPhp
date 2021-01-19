@@ -28,15 +28,15 @@ class Solution{
 				$digits[$i] = $digits[$i]+1;
 				return $digits;
 			}
-			$digits[$i]=0;
+			$digits[$i] = 0;
 		}
 		$res[0] =1;
-		for ($i=1; $i <=$len; $i++) { 
-			$res[$i] =0;
+		for ($i=1; $i <= $len; $i++) { 
+			$res[$i] = 0;
 		}
 		return $res;
 	}
 }
 $s = new Solution();
 echo "<pre>";
-print_r($s->plusOne([9,9]));
+print_r($s->plusOne([1,2,3]));

@@ -19,29 +19,27 @@ class TreeNode {
     }
 }
 class Solution {
+	private $max = PHP_INT_MIN;
 	function maxPathSum($root){
 		if($root==null) return 0;
-		$max = 0;
-		$this->maxGain($root,$max);
-		return $max;
+		
+		$this->maxGain($root);
+		return $this->max;
 	}
 
-	function maxGain($root,&$max){
-		if($root==null) return ;
+	function maxGain($root){
+		if($root==null) return 0;
 		//求左子树最大贡献值
-		$leftGain = max($this->maxGain($root->left,$max),0);
+		$leftGain = max($this->maxGain($root->left),0);
 		//求右子树最大贡献值
-		$rightGain = max($this->maxGain($root->right,$max),0);
-		//节点中最大贡献值取决于左右两个子树和自身节点值
-		$priceNewpath  = $root->val+$leftGain+$rightGain;
-		//求出最大值
-		$max = max($priceNewpath,$max);
-		return $root->val+$leftGain+$rightGain;
+		$rightGain = max($this->maxGain($root->right),0);
+		$this->max = max($this->max, $root->val + $leftGain + $rightGain);
+		return $root->val + max($leftGain, $rightGain);
 	}
 }
 
 $s = new Solution();
-$t1= new TreeNode(-10);
+$t1= new TreeNode(-3);
 $t2= new TreeNode(9);
 $t3= new TreeNode(20);
 $t4= new TreeNode(15);

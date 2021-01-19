@@ -7,12 +7,14 @@ class Solution {
     public function minDistance($word1, $word2) {
     	$m = strlen($word1);
     	$n = strlen($word2);
+        if($m==0) return $n;
+        if($n==0) return $m;
     	$dp = [];
     	for ($i=0; $i <=$m; $i++) { 
-    		$dp[0][$i] = $i;
+    		$dp[$i][0] = $i;
     	}
     	for ($j=0; $j <=$n; $j++) { 
-    		$dp[$j][0] = $j;
+    		$dp[0][$j] = $j;
     	}
     	for($i=1;$i<=$m;$i++){
     		for ($j=1; $j <=$n; $j++) { 
@@ -30,4 +32,5 @@ class Solution {
 
 $s = new Solution();
 echo "<pre>";
-var_dump($s->minDistance("intention","execution"));
+
+var_dump($s->minDistance("zoologicoarchaeologist","zoogeologist"));

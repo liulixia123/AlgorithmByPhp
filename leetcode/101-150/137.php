@@ -1,23 +1,24 @@
 <?php
 /**
- * 只出现一次的数字II
+ * 只出现一次的数字II 中等难度
  是136题的加强版
  给定一个数组，数组中只有一个元素出现一次，其他元素出现3次，你能在线性时间复杂度求解吗
+ 一个数第一次遇到赋值给a第二次遇到赋值给b，第三次遇到就全部消除
+ a = a^num
+ b = b^num
+ b = (b^num)&~a
+ a = (a^num)&~b
  */
 class Solution{
 	public function singleNumber($nums){
 		$len = count($nums);
-		$x1 = $x2 = 0;
-		$mask = 0;
+		$one = $two = 0;		
 		for ($i=0; $i < $len; $i++) { 
-			$x2 ^=$x1&$nums[$i];
-			$x1 ^=$nums[$i];
-			$mask = ~($x1&$x2);
-			$x2 &= $mask;
-			$x1 &= $mask; 
-		}
-		
-		return $x1;
+			$one = ($one^$nums[$i])&~$two;
+			$two = ($two^$nums[$i])&~$one;
+			
+		}		
+		return $one;
 	}
 }
 $s = new Solution();

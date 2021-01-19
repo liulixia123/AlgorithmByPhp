@@ -32,6 +32,21 @@ class Solution{
 		}
 		return $counter;
 	}
+	function findContentChildren1($g,$s){
+		sort($g);
+        sort($s);
+
+        for($i=0,$j=0;$i<count($g)&&$j<count($s);)
+        {
+            //  满足一个孩子
+            if($g[$i]<=$s[$j])
+                $i ++;
+            //  不管是否满足孩子，都要往后寻找饼干
+            $j++;
+        }
+
+        return $i;
+    }
 }
 $obj = new Solution();
 $g = [1,2,3];

@@ -36,11 +36,29 @@ class Solution {
         }
         return $dp[$m-1][$n-1];
     }
+    //空间压缩的动态规划
+    function minPathSum1($grid) {
+        if(empty($grid)) return 0;
+        $m = count($grid);
+        $n = count($grid[0]);
+        $dp = [];
+        $dp[0] = $grid[0][0];
+        for ($i=1; $i < $n; $i++) { 
+            $dp[$i] = $dp[$i - 1] + $grid[0][$i];
+        } 
+        for ($i=1; $i < $m; $i++) {        
+          for ($j=0; $j < $n; $j++) {
+              $tem = ($j>0)?$dp[$j-1]:PHP_INT_MAX;
+              $dp[$j] = min($tem,$dp[$j])+$grid[$i][$j];             
+          }
+        }       
+        return $dp[$n-1];
+    }
 }
 
 $s = new Solution();
 echo "<pre>";
-print_r($s->minPathSum([
+print_r($s->minPathSum1([
   [1,3,1],
   [1,5,1],
   [4,2,1]

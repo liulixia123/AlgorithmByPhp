@@ -33,7 +33,7 @@ class Solution {
     function maximalRectangle($matrix) {
     	$height = [];
     	if(empty($matrix)) return 0;
-    	if($matrix[0][0]=="0"&&count($matrix)==1) return 0;
+    	//if($matrix[0][0]=="0"&&count($matrix)==1) return 0;
     	$m = count($matrix);
     	$n = count($matrix[0]);
     	$maxArea = 0;
@@ -77,5 +77,5 @@ class Solution {
 	}
 }
 $obj = new Solution();
-$maxArea = $obj->maximalRectangle([["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]);
+$maxArea = $obj->maximalRectangle([["0","0"]]);
 echo $maxArea;

@@ -26,6 +26,8 @@ Output: [
 
  */
 class Solution{
+    private $upperlim = (1 << 8) - 1;
+    private $sum = 0;
 	private $solution; //二维数组 true 就表示当前位置放置了皇后，false 就表示没有放置皇后
 	public function solveNQueens($n){
 		$res = [];
@@ -125,7 +127,31 @@ class Solution{
             }
         }
     }
+    //位运算解决
+    function process($col,$ld,$rd){
+        $pos = $p = 0;
+        if($col != $this->upperlim){
+            $pos = $this->upperlim & ~($col | $ld | $rd);//所有可以放的位置
+             while ($pos != 0) // 0 -- 皇后没有地方可放，回溯
+             {
+                $p = $pos & (~($pos-1));//最右边的位置
+                $pos -= $p;
+                //$col|$p将当前列置1，表示记录这次皇后放置的列,(ld | p) << 1，标记当前皇后左边相邻的列不允许下一个皇后放置。(rd | p) >> 1，标记当前皇后右边相邻的列不允许下一个皇后放置。
+                $this->process($col|$p,($ld|$p)<<1,($rd|$p)>>1);
+             }
+        }else{
+            ++$this->sum; 
+            echo $this->sum;           
+        }
+
+    }
+    function test(){
+        echo "方法".$this->sum;
+    }
 }
 $s = new Solution();
 echo "<pre>";
 print_r($s->solveNQueens(4));
+
+$s->process(0,0,0);
+$s->test();

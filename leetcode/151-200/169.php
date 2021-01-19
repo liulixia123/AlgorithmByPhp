@@ -37,7 +37,38 @@ class Solution{
 		}
 		return $candidate;
 	} 
+	/**
+	 * 一次删两个不相同的元素，如果删到最后不剩下元素说明众数不存在
+	 * 删到最后剩余一个元素，说明可能是众数，在重新在数组中查这个数出现的次数
+	 */
+	public function majorityElement1($nums){
+		$cand = $nums[0];
+		$hp = 1;
+		$len = count($nums);
+		for ($i = 1; $i < $len; $i++) { 
+			if($cand==$nums[$i]){
+				$hp++;
+			}else{
+				$hp--;
+			}
+			if($hp==0){
+				$cand = $nums[$i];
+				$hp = 1;
+			}
+		}
+		if($hp==0){
+			return -1;
+		}else{
+			$hp = 0;
+		}
+		for ($i=0; $i < $len; $i++) { 
+			if($cand == $nums[$i]){
+				$hp++;
+			}
+		}
+		return $hp>=intval($len/2)?$cand:-1;
+	}
 }
 $s = new Solution();
 echo "<pre>";
-print_r($s->majorityElement([3,2,3]));
+print_r($s->majorityElement1([2,2,1,1,1,2,2]));

@@ -18,7 +18,7 @@ class Solution {
     function isPalindrome($head) {
         if ($head === null || $head->next === null) return true;
         // 快慢指针，遍历的同时反转链表前半部分
-        $fast = $slow = $head;
+        $fast = $slow = $head;        
         $pre = null;
         while ($fast !== null && $fast->next !== null) {
             // 这里的顺序会严重影响结果
@@ -29,16 +29,27 @@ class Solution {
             $cur->next = $pre;
             $pre = $cur;
         }
-
+        $n3 = $pre;
         // 此时 slow 位于右中点
         if ($fast !== null) $slow = $slow->next;
-
+        $res = true;
         while ($pre !== null) {
-            if ($pre->val != $slow->val) return false;
+            if ($pre->val != $slow->val) $res = false;
             $pre = $pre->next;
             $slow = $slow->next;
         }
-        return true;
+       
+        //链表前半部分在反转回来
+        $n1 = $n3->next;
+        $n3->next = null;
+        while ($n1 != null) { // recover list
+            $n2 = $n1->next;
+            $n1->next = $n3;
+            $n3 = $n1;
+            $n1 = $n2;
+        }
+
+        return $res;
 
     }
     //
@@ -69,13 +80,13 @@ class Solution {
 
 $L11= new ListNode(1);
 $L12= new ListNode(2);
-$L13= new ListNode(2);
-$L14= new ListNode(1);
-$L15= new ListNode(5);
+$L13= new ListNode(3);
+$L14= new ListNode(2);
+$L15= new ListNode(1);
 $L11->next = $L12;
 $L12->next = $L13;
 $L13->next = $L14;
 $L14->next = $L15;
 $s = new Solution();
 echo "<pre>";
-var_dump($s->isPalindrome1($L11));
+var_dump($s->isPalindrome($L11));

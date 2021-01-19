@@ -1,6 +1,6 @@
 <?php
 /**
- * 前缀树
+ * 前缀树 字典树
  */
 class TrieNode{
 	public $path;
@@ -99,9 +99,11 @@ class Trie{
 
 $Trie  = new Trie();
 $Trie->insert("abc");
+$Trie->insert("bcd");
+$Trie->insert("bcdr");
 echo "<pre>";
 //print_r($Trie);
 
-//print_r($Trie->search("abc"));
-$Trie->delete("abc");
+var_dump($Trie->search("bcd"));
+//$Trie->delete("abc");
 print_r($Trie);

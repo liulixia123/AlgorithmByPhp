@@ -6,7 +6,7 @@
  */
 class Solution {
 	function findAnagrams($s, $p){
-		$left = $right=0;
+		$left = $right = 0;
 		//ss用来表示窗口windows，pp用来表示needs
 		$ss = $pp = $res = [];
 		for ($i=0; $i < strlen($p); $i++) { 

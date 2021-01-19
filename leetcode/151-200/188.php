@@ -20,7 +20,8 @@
 class Solution{
 	function maxProfit($prices,$k){
 		$n = count($prices);
-		if($n<=0) return 0;		
+		if($n<=0) return 0;	
+		if($k<=0) return 0;	
 		$dp = [];
 		
 		for ($i=1; $i < $k+1; $i++) { 

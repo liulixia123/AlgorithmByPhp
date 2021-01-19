@@ -39,8 +39,8 @@ class TreeNode {
 class Solution{
     private $inmap; //反转中序数组中所有键以及它们关联的值
     private $preindex = 0; // 前序参数索引
-    private $preorder;
-    private $inorder;
+    private $preorder;//前序
+    private $inorder;//中序
 	public function buildTree($preorder, $inorder){
 		$this->preorder = $preorder;
         $this->inorder = $inorder;

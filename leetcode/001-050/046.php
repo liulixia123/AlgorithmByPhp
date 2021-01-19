@@ -1,5 +1,6 @@
 <?php
 /**题目
+全排列 中等
 Given a collection of distinct integers, return all possible permutations.
 Input: [1,2,3]
 Output:

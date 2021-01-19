@@ -1,6 +1,6 @@
 <?php
 /**
- * 柱形最大面积
+ * 柱形最大面积 困难
  *
  * 最优解是用栈解
  */
@@ -31,6 +31,24 @@ class Solution{
 		
 		return $max;
 	}
+	function maxArea1($nums){
+		// 比栈顶元素小大才出栈，最后一个元素后需要补一个0，让最后一个元素有机会出栈。
+        array_push($heights, 0);
+        
+        $stack = [];
+        $area = 0;
+        for ($i = 0; $i < count($heights); $i++) {
+            while (!empty($stack) && $heights[end($stack)] > $heights[$i]) {
+                $top = array_pop($stack);
+                $width = empty($stack) ? $i : ($i - end($stack) - 1);
+                $area = max($area, $heights[$top] * $width);
+            }
+
+            array_push($stack, $i);
+        }
+
+        return $area;
+	}
 }
 $s = new Solution();
-var_dump($s->maxArea([3,1,3,2,2]));
+var_dump($s->maxArea([2,1,5,6,2,3]));

@@ -75,13 +75,6 @@ class Solution {
     }
     //合并两个数组
     function merge($nums1,$nums2){
-    	/*$arrmerge=array();
-	    while(count($tmp1) && count($tmp2)){
-	        $arrmerge[] = $tmp1[0]>$tmp2[0]?array_shift($tmp1):(
-	        	$tmp1[0]==$tmp2[0]?(count($tmp1)==1?array_shift($tmp2):array_shift($tmp1)):array_shift($tmp2));
-	        	
-	    }
-	    return array_merge($arrmerge,$tmp1,$tmp2);*/
 	    $k = $l = $r=0;
 	    $res = [];
     	while($l<count($nums1) && $r<count($nums2))

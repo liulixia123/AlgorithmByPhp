@@ -19,6 +19,13 @@ function heapinsert($arr){
 
 	}
 }
+/**
+ * [heapify description]
+ * @param  [type] &$arr   [description]
+ * @param  [type] $length [数组长度]
+ * @param  [type] $i      [当前节点位置]
+ * @return [type]         [description]
+ */
 function heapify(&$arr,$length,$i){
 	$left = 2*$i+1;
 	$right = 2*$i+2;

@@ -24,3 +24,18 @@ class Solution{
 		}
 	}
 }
+$s = new Solution();
+$t1= new TreeNode(1);
+$t2= new TreeNode(2);
+$t3= new TreeNode(3);
+$t4= new TreeNode(4);
+$t5= new TreeNode(5);
+$t6= new TreeNode(6);
+
+$t1->left = $t2;
+$t1->right = $t3;
+$t2->left = $t4;
+$t2->right = $t5;
+$t3->left = $t6;
+echo "<pre>";
+print_r($s->lowestCommonAncestor($t1,$t4,$t5));
